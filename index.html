@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://npmcdn.com/@reactivex/rxjs@5.0.0-beta.8/dist/global/Rx.umd.js"></script>
+    <script>
+      // https://www.learnrxjs.io/learn-rxjs/operators/utility/let
+      // Example 3: Applying multiple operators with let
+      //emit array as a sequence
+      const source = Rx.Observable.from([1, 2, 3, 4, 5]);
+
+      //let provides flexibility to add multiple operators to source observable then return
+      const subscribeTwo = source
+        .map((val) => val + 1)
+        .let((obs) =>
+          obs
+            .map((val) => val + 2)
+            //also, just return evens
+            .filter((val) => val % 2 === 0)
+        )
+        //output: 4,6,8
+        .subscribe((val) => console.log('let WITH MULTIPLE OPERATORS: ', val));
+    </script>
+  </head>
+  <body></body>
+</html>
